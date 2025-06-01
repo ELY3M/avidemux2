@@ -22,8 +22,9 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build
         run: |
+          chmod +x ${{ github.workspace }}/*.bash
           ${{ github.workspace }}/createDebFromSourceUbuntu.bash --deps-only
-          bootStrap.bash --with-system-libass 
+          ${{ github.workspace }}/bootStrap.bash --with-system-libass 
   build-windows:
     name: Build (Windows)
     runs-on: ubuntu-latest
@@ -31,14 +32,16 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build
         run: |
-          ${{ github.workspace }}/bootStrapCrossMingwQt6_mxe.sh          
-  # build-macos:
-    # name: Build (macOS)
-    # runs-on: macos-latest
-    # steps:
-      # - uses: actions/checkout@v3
-      # - name: Build
-        # run: |
-          # brew install cmake nasm yasm qt xvid x264 x265 libvpx aom opus fdk-aac lame libass mp4v2 a52dec
-          # export MACOSX_DEPLOYMENT_TARGET=$(xcrun --sdk macosx --show-sdk-version)
-          # bash bootStrapOsx_Catalina.bash --enable-qt6
+          chmod +x ${{ github.workspace }}/*.sh
+          sh ${{ github.workspace }}/bootStrapCrossMingwQt6_mxe.sh          
+  build-macos:
+    name: Build (macOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build
+        run: |
+          chmod +x ${{ github.workspace }}/*.bash
+          brew install cmake nasm yasm qt xvid x264 x265 libvpx aom opus fdk-aac lame libass mp4v2 a52dec
+          export MACOSX_DEPLOYMENT_TARGET=$(xcrun --sdk macosx --show-sdk-version)
+          bash ${{ github.workspace }}/bootStrapOsx_Catalina.bash --enable-qt6
