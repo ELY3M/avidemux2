@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build
         run: |
-          createDebFromSourceUbuntu.bash --deps-only
+          ${{ github.workspace }}/createDebFromSourceUbuntu.bash --deps-only
           bootStrap.bash --with-system-libass 
   build-windows:
     name: Build (Windows)
@@ -31,7 +31,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build
         run: |
-          bootStrapCrossMingwQt6_mxe.sh          
+          ${{ github.workspace }}/bootStrapCrossMingwQt6_mxe.sh          
   # build-macos:
     # name: Build (macOS)
     # runs-on: macos-latest
